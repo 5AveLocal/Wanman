@@ -1,0 +1,4 @@
+fares:
+  default:
+    multiplier: 0.0175
+    faretable: 'faretable'

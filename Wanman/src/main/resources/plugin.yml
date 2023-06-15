@@ -1,0 +1,23 @@
+name: Wanman
+version: 1.5.2
+main: me.fiveave.wanman.main
+api-version: 1.15
+description: Wanman Fare Plugin
+depend: [ Train_Carts ]
+commands:
+  wanmandist:
+    description: Wanman Distance Measurer
+    usage: /wanmandist
+  wanmanfaretable:
+    description: Wanman Distance Measurer
+    usage: /wanmanfaretable
+    aliases: [wanmanft]
+permissions:
+  wanman.*:
+    description: All Wanman Perms
+    children:
+      wanman.marker: true
+    default: op
+  wanman.marker:
+    description: Allow using Wanman distance marker
+    default: op
