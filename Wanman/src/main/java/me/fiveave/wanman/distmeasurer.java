@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.fiveave.wanman.cartevents.tickToTimeFormatter;
 import static me.fiveave.wanman.main.*;
 
 public class distmeasurer implements CommandExecutor, TabCompleter {
@@ -52,7 +53,9 @@ public class distmeasurer implements CommandExecutor, TabCompleter {
                 DecimalFormat df2 = new DecimalFormat("#.##");
                 p.sendMessage(wmhead + ChatColor.RED + "測定終了 Measuring ended");
                 p.sendMessage(wmhead + ChatColor.YELLOW + "総走行距離 Total distance: " + df2.format(measuretotaldist.get(p)) + " m");
+                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行時間 Total time: " + tickToTimeFormatter(measuretotaltime.get(p)));
                 measuretotaldist.remove(p);
+                measuretotaltime.remove(p);
                 lastx.remove(p);
                 lastz.remove(p);
                 measuring.put(p, false);

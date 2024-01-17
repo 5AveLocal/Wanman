@@ -18,6 +18,7 @@ public final class main extends JavaPlugin {
     static HashMap<Object, Double> lastx = new HashMap<>();
     static HashMap<Object, Double> lastz = new HashMap<>();
     static HashMap<Object, Double> measuretotaldist = new HashMap<>();
+    static HashMap<Object, Integer> measuretotaltime = new HashMap<>();
     static main plugin;
     public static abstractfile trainfares;
     sign var = new sign();

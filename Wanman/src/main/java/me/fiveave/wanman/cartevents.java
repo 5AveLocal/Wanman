@@ -108,6 +108,7 @@ public class cartevents implements Listener {
         measuring.putIfAbsent(p, false);
         if (p.isInsideVehicle() && measuring.get(p)) {
             measuretotaldist.putIfAbsent(p, 0.0);
+            measuretotaltime.putIfAbsent(p, 0);
             if (p.getVehicle() instanceof Minecart) {
                 MinecartGroup mg = MinecartGroupStore.get(p.getVehicle());
                 TrainProperties tprop = mg.getProperties();
@@ -121,6 +122,7 @@ public class cartevents implements Listener {
                 lastx.put(p, locx);
                 lastz.put(p, locz);
             }
+            measuretotaltime.put(p, measuretotaltime.get(p) + 1);
             measuretotaldist.put(p, measuretotaldist.get(p) + dist);
             int intdist = (int) measuretotaldist.get(p).doubleValue();
             if (marker && Math.floorMod(intdist, 100) == 0) {
@@ -133,7 +135,7 @@ public class cartevents implements Listener {
             }
             DecimalFormat df0 = new DecimalFormat("#");
             DecimalFormat df2 = new DecimalFormat("0.00");
-            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m";
+            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m"+ " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(measuretotaltime.get(p));
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> measuredist(p, marker), 1);
@@ -144,5 +146,16 @@ public class cartevents implements Listener {
 
     static FileConfiguration getTF() {
         return trainfares.dataconfig;
+    }
+
+    public static String tickToTimeFormatter(int t) {
+        int h = Math.floorDiv(t, 72000);
+        t -= h * 72000;
+        int m = Math.floorDiv(t, 1200);
+        t -= m * 1200;
+        int s = Math.floorDiv(t, 20);
+        t -= s * 20;
+        int q = Math.floorMod(t, 20) * 5;
+        return String.format("%02d:%02d:%02d.%02d", h, m, s, q);
     }
 }
