@@ -27,82 +27,6 @@ import static me.fiveave.wanman.main.*;
 
 public class cartevents implements Listener {
 
-    @EventHandler
-    public void cartExitEvent(VehicleExitEvent event) {
-        if (event.getExited() instanceof Player) {
-            Player p = (Player) event.getExited();
-            if (!p.isInsideVehicle()) {
-                Bukkit.getScheduler().runTaskLater(plugin, () -> payEvent(event), 1);
-            }
-        }
-    }
-
-    @EventHandler
-    public void cartEnterEvent(VehicleEnterEvent event) {
-        if (event.getEntered() instanceof Player) {
-            Player p = (Player) event.getEntered();
-            incart.put(p, true);
-            totaldist.putIfAbsent(p, 0);
-            Entity selcart = p.getVehicle();
-            MinecartGroup mg = MinecartGroupStore.get(selcart);
-            if (selcart instanceof Minecart) {
-                cart.put(p, mg);
-            }
-        }
-    }
-
-    @EventHandler
-    public void payEvent(VehicleExitEvent event) {
-        if (event.getExited() instanceof Player) {
-            Player p = (Player) event.getExited();
-            totaldist.putIfAbsent(p, 0);
-            incart.putIfAbsent(p, false);
-            try {
-                if (!p.isInsideVehicle()) {
-                    incart.put(p, false);
-                    Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                        if (!incart.get(p) && !totaldist.get(p).equals(0)) {
-                            MinecartGroup mg = cart.get(p);
-                            double multi = 0.07 / 4;
-                            // From trainfares (if available)
-                            for (Object tname : Objects.requireNonNull(getTF().getConfigurationSection("fares")).getKeys(false)) {
-                                multi = getTF().getDouble("fares.default.multiplier");
-                                String tname2 = tname.toString();
-                                faretable.read("default", 0);
-                                if (mg.getProperties().getDisplayName().contains(tname2)) {
-                                    multi = getTF().getDouble("fares." + tname2 + ".multiplier");
-                                    faretable.read(tname2, 0);
-                                }
-                            }
-                            cart.remove(p);
-                            DecimalFormat df2 = new DecimalFormat("#.##");
-                            double km2 = totaldist.get(p) * 0.001;
-                            int km = (int) (km2 + 1) - 1 == km2 ? (int) km2 : (int) (km2 + 1);
-                            // Read fare table
-                            if (totaldist.get(p) > 0) {
-                                double fare;
-                                if (km > ft.size()) {
-                                    fare = ft.get(ft.size() - 1) * multi;
-                                } else {
-                                    fare = (ft.get(km)) * multi;
-                                }
-                                Objects.requireNonNull(p.getPlayer()).sendMessage(wmhead + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + wmhead + "Fare: $" + df2.format(fare));
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco take " + p.getName() + " " + df2.format(fare));
-                                totaldist.put(p, 0);
-                            }
-                        }
-                    }, 1);
-                }
-            } catch (NumberFormatException e) {
-                p.sendMessage(wmhead + ChatColor.RED + "数字フォーマットエラーが発生しました。A number format exception occurred.");
-                e.printStackTrace();
-            } catch (CommandException e) {
-                p.sendMessage(wmhead + ChatColor.RED + "コマンドエラーが発生しました。A command exception occurred.");
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void measuredist(Player p, Boolean marker) {
         double dist;
         measuring.putIfAbsent(p, false);
@@ -135,7 +59,7 @@ public class cartevents implements Listener {
             }
             DecimalFormat df0 = new DecimalFormat("#");
             DecimalFormat df2 = new DecimalFormat("0.00");
-            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m"+ " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(measuretotaltime.get(p));
+            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m" + " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(measuretotaltime.get(p));
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> measuredist(p, marker), 1);
@@ -157,5 +81,78 @@ public class cartevents implements Listener {
         t -= s * 20;
         int q = Math.floorMod(t, 20) * 5;
         return String.format("%02d:%02d:%02d.%02d", h, m, s, q);
+    }
+
+    @EventHandler
+    public void cartExitEvent(VehicleExitEvent event) {
+        if (event.getExited() instanceof Player) {
+            Player p = (Player) event.getExited();
+            if (!p.isInsideVehicle()) {
+                Bukkit.getScheduler().runTaskLater(plugin, () -> payEvent(event), 1);
+            }
+        }
+    }
+
+    @EventHandler
+    public void cartEnterEvent(VehicleEnterEvent event) {
+        if (event.getEntered() instanceof Player) {
+            Player p = (Player) event.getEntered();
+            incart.put(p, true);
+            totaldist.putIfAbsent(p, 0);
+        }
+    }
+
+    @EventHandler
+    public void payEvent(VehicleExitEvent event) {
+        if (event.getExited() instanceof Player) {
+            Player p = (Player) event.getExited();
+            totaldist.putIfAbsent(p, 0);
+            incart.putIfAbsent(p, false);
+            try {
+                if (!p.isInsideVehicle()) {
+                    incart.put(p, false);
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                        if (!incart.get(p) && !totaldist.get(p).equals(0)) {
+                            MinecartGroup mg = MinecartGroupStore.get(event.getVehicle());
+                            double multi = 0.07 / 4;
+                            // From trainfares (if available)
+                            for (Object tname : Objects.requireNonNull(getTF().getConfigurationSection("fares")).getKeys(false)) {
+                                multi = getTF().getDouble("fares.default.multiplier");
+                                String tname2 = tname.toString();
+                                faretable.read("default", 0);
+                                try {
+                                    if (mg.getProperties().getDisplayName().contains(tname2)) {
+                                        multi = getTF().getDouble("fares." + tname2 + ".multiplier");
+                                        faretable.read(tname2, 0);
+                                    }
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            DecimalFormat df2 = new DecimalFormat("#.##");
+                            double km2 = totaldist.get(p) * 0.001;
+                            int km = (int) (km2 + 1) - 1 == km2 ? (int) km2 : (int) (km2 + 1);
+                            // Read fare table
+                            if (totaldist.get(p) > 0) {
+                                double fare;
+                                if (km > ft.size()) {
+                                    fare = ft.get(ft.size() - 1) * multi;
+                                } else {
+                                    fare = (ft.get(km)) * multi;
+                                }
+                                Objects.requireNonNull(p.getPlayer()).sendMessage(wmhead + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + wmhead + "Fare: $" + df2.format(fare));
+                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco take " + p.getName() + " " + df2.format(fare));
+                                totaldist.put(p, 0);
+                            }
+                        }
+                    }, 1);
+                }
+            } catch (NumberFormatException e) {
+                p.sendMessage(wmhead + ChatColor.RED + "数字フォーマットエラーが発生しました。A number format exception occurred.");
+                e.printStackTrace();
+            } catch (CommandException e) {
+                p.sendMessage(wmhead + ChatColor.RED + "コマンドエラーが発生しました。A command exception occurred.");
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -13,7 +13,6 @@ import java.util.Objects;
 public final class main extends JavaPlugin {
     static HashMap<Object, Integer> totaldist = new HashMap<>();
     static HashMap<Object, Boolean> incart = new HashMap<>();
-    static HashMap<Object, MinecartGroup> cart = new HashMap<>();
     static HashMap<Object, Boolean> measuring = new HashMap<>();
     static HashMap<Object, Double> lastx = new HashMap<>();
     static HashMap<Object, Double> lastz = new HashMap<>();

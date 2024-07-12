@@ -1,10 +1,12 @@
 package me.fiveave.wanman;
 
 import com.bergerkiller.bukkit.tc.controller.MinecartGroup;
+import com.bergerkiller.bukkit.tc.controller.MinecartGroupStore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 
@@ -14,17 +16,17 @@ import java.util.Objects;
 
 import static me.fiveave.wanman.cartevents.getTF;
 import static me.fiveave.wanman.faretable.faretabletext;
-import static me.fiveave.wanman.main.cart;
 
 public class getfaretable implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = (Player) sender;
-        if (p.getVehicle() instanceof Minecart) {
+        Entity vehicle = p.getVehicle();
+        if (vehicle instanceof Minecart) {
             for (Object tname : Objects.requireNonNull(getTF().getConfigurationSection("fares")).getKeys(false)) {
                 String tname2 = tname.toString();
                 faretable.read("default", 1);
-                MinecartGroup mg = cart.get(p);
+                MinecartGroup mg = MinecartGroupStore.get(vehicle);
                 if (mg.getProperties().getDisplayName().contains(tname2)) {
                     faretable.read(tname2, 1);
                 }
