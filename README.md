@@ -8,7 +8,8 @@ Must be installed in Minecraft 1.12 or above.
 
 
 ## ⚙️ Commands
-`/wanmandist` for distance measurer and speedometer.
+`/wanmandist` for speedometer, distance measurer, and time measurer.
+`/wanmanfaretable` or `/wanmanft` for a distance-to-fare table.
 
 ## ⚠️ Warnings
 Restart is required if Wanman signs cannot be detected. (The error should contain `zip file closed` in the console)
