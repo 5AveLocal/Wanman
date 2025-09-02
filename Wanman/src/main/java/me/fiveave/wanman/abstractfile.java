@@ -1,6 +1,5 @@
 package me.fiveave.wanman;
 
-import me.fiveave.wanman.main;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,9 +14,9 @@ import static me.fiveave.wanman.main.wmhead;
 
 public class abstractfile {
     protected final main plugin;
-    private File file;
     public FileConfiguration dataconfig;
     public FileConfiguration oldconfig;
+    private File file;
 
     public abstractfile(main plugin, String fileName) {
         this.plugin = plugin;

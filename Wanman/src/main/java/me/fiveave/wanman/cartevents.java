@@ -12,7 +12,6 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.command.CommandException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,7 +60,6 @@ public class cartevents implements Listener {
             DecimalFormat df2 = new DecimalFormat("0.00");
             String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m" + " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(measuretotaltime.get(p));
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
-
             Bukkit.getScheduler().runTaskLater(plugin, () -> measuredist(p, marker), 1);
         } else if (!p.isInsideVehicle()) {
             Bukkit.dispatchCommand(p, "wanmandist");

@@ -1,6 +1,5 @@
 package me.fiveave.wanman;
 
-import com.bergerkiller.bukkit.tc.controller.MinecartGroup;
 import com.bergerkiller.bukkit.tc.signactions.SignAction;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;

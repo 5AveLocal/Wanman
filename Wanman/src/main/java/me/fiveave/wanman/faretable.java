@@ -38,7 +38,7 @@ public class faretable {
                 } else if (bt == 1) {
                     double multi = getTF().getDouble("fares." + s + ".multiplier");
                     DecimalFormat df2 = new DecimalFormat("0.00");
-                    faretabletext = String.format("%s%s\n", faretabletext, String.format("%s %s %s", ChatColor.GREEN + "" + String.format("%05d", info[0]), ChatColor.RED + "" + String.format("%05d", info[1]), ChatColor.YELLOW + "" + df2.format(multi * info[2])));
+                    faretabletext = String.format("%s%s\n", faretabletext, String.format("%s %s %s", ChatColor.GREEN + String.format("%05d", info[0]), ChatColor.RED + String.format("%05d", info[1]), ChatColor.YELLOW + df2.format(multi * info[2])));
                 }
             }
         } catch (IOException e) {
