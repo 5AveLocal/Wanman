@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static me.fiveave.wanman.cartevents.tickToTimeFormatter;
-import static me.fiveave.wanman.main.*;
+import static me.fiveave.wanman.main.wmhead;
+import static me.fiveave.wanman.main.wmuser;
+import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
 public class distmeasurer implements CommandExecutor, TabCompleter {
 
@@ -27,17 +29,22 @@ public class distmeasurer implements CommandExecutor, TabCompleter {
             }
         }
         Player p = (Player) sender;
-        measuring.putIfAbsent(p, false);
+        initWanmanuser(p);
+        wanmanuser user = wmuser.get(p);
         try {
-            if (!measuring.get(p)) {
+            if (!user.isMeasuring()) {
                 if (p.isInsideVehicle()) {
-                    measuring.put(p, true);
+                    user.setMeasuring(true);
+                    user.setMeasuretotaldist(0);
+                    user.setMeasuretotaltime(0);
+                    user.setLastx(p.getLocation().getX());
+                    user.setLastz(p.getLocation().getZ());
                     if (args.length == 1) {
                         if (args[0].equals("marker")) {
                             cartevents.measuredist(p, true);
                             p.sendMessage(wmhead + ChatColor.YELLOW + "標識は100メートルごとに配置されます。 Signs are placed every 100 meters.");
                         } else {
-                            measuring.put(p, false);
+                            user.setMeasuring(false);
                             sender.sendMessage(wmhead + ChatColor.RED + "コマンドは間違いました！ Incorrect command!");
                             return true;
                         }
@@ -49,16 +56,11 @@ public class distmeasurer implements CommandExecutor, TabCompleter {
                     p.sendMessage(wmhead + ChatColor.RED + "乗り物に乗ってください！ Please sit in a vehicle!");
                 }
             } else {
-                measuretotaldist.putIfAbsent(p, 0.0);
                 DecimalFormat df2 = new DecimalFormat("#.##");
                 p.sendMessage(wmhead + ChatColor.RED + "測定終了 Measuring ended");
-                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行距離 Total distance: " + df2.format(measuretotaldist.get(p)) + " m");
-                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行時間 Total time: " + tickToTimeFormatter(measuretotaltime.get(p)));
-                measuretotaldist.remove(p);
-                measuretotaltime.remove(p);
-                lastx.remove(p);
-                lastz.remove(p);
-                measuring.put(p, false);
+                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行距離 Total distance: " + df2.format(user.getMeasuretotaldist()) + " m");
+                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行時間 Total time: " + tickToTimeFormatter(user.getMeasuretotaltime()));
+                user.setMeasuring(false);
             }
         } catch (Exception e) {
             e.printStackTrace();

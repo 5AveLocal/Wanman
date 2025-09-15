@@ -1,5 +1,6 @@
 package me.fiveave.wanman;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,55 +9,73 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Objects;
-
-import static me.fiveave.wanman.main.wmhead;
+import java.util.Set;
+import java.util.logging.Level;
 
 public class abstractfile {
     protected final main plugin;
-    public FileConfiguration dataconfig;
-    public FileConfiguration oldconfig;
+    final FileConfiguration oldconfig;
+    private final String fileName;
+    FileConfiguration dataconfig;
     private File file;
 
-    public abstractfile(main plugin, String fileName) {
+    abstractfile(main plugin, String fileName) {
         this.plugin = plugin;
+        this.fileName = fileName;
         file = new File(plugin.getDataFolder(), fileName);
-        dataconfig = YamlConfiguration.loadConfiguration(file);
-        oldconfig = YamlConfiguration.loadConfiguration(file);
         saveDefaultConfig();
+        // Load the current config first
+        dataconfig = YamlConfiguration.loadConfiguration(file);
+        // Then load a copy for comparison
+        oldconfig = YamlConfiguration.loadConfiguration(file);
         reloadConfig();
     }
 
-    public void reloadConfig() {
-        InputStream stream = plugin.getResource(file.getName());
+    void reloadConfig() {
+        InputStream stream = plugin.getResource(fileName);
         if (stream != null) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(stream));
-            if (file.exists() && !dataconfig.getKeys(true).containsAll(defaultConfig.getKeys(true))) {
-                dataconfig.setDefaults(defaultConfig);
-                plugin.saveResource(file.getName(), true);
+            // Check if config requires updates
+            boolean updatereq = false;
+            for (String key : defaultConfig.getKeys(true)) {
+                if (!dataconfig.contains(key)) {
+                    updatereq = true;
+                    break;
+                }
+            }
+
+            if (updatereq) {
+                // Backup current values
+                Set<String> currentKeys = oldconfig.getKeys(true);
+                // Reload default config (including all new keys)
+                plugin.saveResource(fileName, true);
                 dataconfig = YamlConfiguration.loadConfiguration(file);
-                for (String str : dataconfig.getKeys(true)) {
-                    if (!Objects.equals(oldconfig.get(str), dataconfig.get(str))) {
-                        if (oldconfig.get(str) != null) {
-                            dataconfig.set(str, oldconfig.get(str));
-                        }
-                    }
-                    if (oldconfig.get(str) instanceof String) {
-                        dataconfig.set(str, dataconfig.get(str));
+                // Restore old values
+                for (String key : currentKeys) {
+                    Object oldobj = oldconfig.get(key);
+                    if (oldobj != null) {
+                        dataconfig.set(key, oldobj);
                     }
                 }
-                plugin.saveResource(file.getName(), true);
+                // Add new default values
+                for (String key : defaultConfig.getKeys(true)) {
+                    Object newobj = defaultConfig.get(key);
+                    if (!currentKeys.contains(key) && newobj != null) {
+                        dataconfig.set(key, newobj);
+                    }
+                }
                 try {
                     dataconfig.save(file);
+
+                    Bukkit.getLogger().log(Level.INFO, ChatColor.YELLOW + fileName + " has been updated with new config options");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(wmhead + ChatColor.YELLOW + file.getName() + " has been updated due to missing content");
             }
         }
     }
 
-    public void save() {
+    void save() {
         if (dataconfig == null || file == null) {
             return;
         }
@@ -67,14 +86,12 @@ public class abstractfile {
         }
     }
 
-    public void saveDefaultConfig() {
+    void saveDefaultConfig() {
         if (file == null) {
-            assert false;
-            file = new File(plugin.getDataFolder(), file.getName());
+            file = new File(plugin.getDataFolder(), fileName);
         }
         if (!file.exists()) {
-            plugin.saveResource(file.getName(), false);
-            dataconfig = YamlConfiguration.loadConfiguration(file);
+            plugin.saveResource(fileName, false);
         }
     }
 }

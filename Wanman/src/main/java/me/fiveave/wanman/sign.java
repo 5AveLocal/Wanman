@@ -13,7 +13,8 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
-import static me.fiveave.wanman.main.totaldist;
+import static me.fiveave.wanman.main.wmuser;
+import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
 public class sign extends SignAction {
 
@@ -34,10 +35,11 @@ public class sign extends SignAction {
                 //noinspection rawtypes
                 List cartpassengers = cart2.getPassengers();
                 for (Object cartobject : cartpassengers) {
-                    Player cartplayer = (Player) cartobject;
+                    Player p = (Player) cartobject;
                     // Decimal format
-                    totaldist.putIfAbsent(cartplayer, 0);
-                    totaldist.put(cartplayer, (parseInt(cartevent.getLine(2))) + totaldist.get(cartplayer));
+                    initWanmanuser(p);
+                    wanmanuser user = wmuser.get(p);
+                    user.setTotaldist(parseInt(cartevent.getLine(2)) + user.getTotaldist());
                 }
             }
         } else if (cartevent.isAction(SignActionType.GROUP_LEAVE, SignActionType.REDSTONE_OFF) && !cartevent.hasRailedMember() && !cartevent.isPowered()) {

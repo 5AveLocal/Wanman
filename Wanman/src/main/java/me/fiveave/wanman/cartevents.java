@@ -23,15 +23,15 @@ import java.text.DecimalFormat;
 import java.util.Objects;
 
 import static me.fiveave.wanman.main.*;
+import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
 public class cartevents implements Listener {
 
     public static void measuredist(Player p, Boolean marker) {
         double dist;
-        measuring.putIfAbsent(p, false);
-        if (p.isInsideVehicle() && measuring.get(p)) {
-            measuretotaldist.putIfAbsent(p, 0.0);
-            measuretotaltime.putIfAbsent(p, 0);
+        initWanmanuser(p);
+        wanmanuser user = wmuser.get(p);
+        if (p.isInsideVehicle() && user.isMeasuring()) {
             if (p.getVehicle() instanceof Minecart) {
                 MinecartGroup mg = MinecartGroupStore.get(p.getVehicle());
                 TrainProperties tprop = mg.getProperties();
@@ -39,15 +39,13 @@ public class cartevents implements Listener {
             } else {
                 double locx = p.getLocation().getX();
                 double locz = p.getLocation().getZ();
-                lastx.putIfAbsent(p, locx);
-                lastz.putIfAbsent(p, locz);
-                dist = Math.hypot(locx - lastx.get(p), locz - lastz.get(p));
-                lastx.put(p, locx);
-                lastz.put(p, locz);
+                dist = Math.hypot(locx - user.getLastx(), locz - user.getLastz());
+                user.setLastx(locx);
+                user.setLastz(locz);
             }
-            measuretotaltime.put(p, measuretotaltime.get(p) + 1);
-            measuretotaldist.put(p, measuretotaldist.get(p) + dist);
-            int intdist = (int) measuretotaldist.get(p).doubleValue();
+            user.setMeasuretotaltime(user.getMeasuretotaltime() + 1);
+            user.setMeasuretotaldist(user.getMeasuretotaldist() + dist);
+            int intdist = (int) user.getMeasuretotaldist();
             if (marker && Math.floorMod(intdist, 100) == 0) {
                 Block blk = Objects.requireNonNull(p.getLocation().getWorld()).getBlockAt(p.getLocation().getBlockX(), p.getLocation().getBlockY() + 2, p.getLocation().getBlockZ());
                 blk.setType(Material.OAK_SIGN, false);
@@ -58,7 +56,9 @@ public class cartevents implements Listener {
             }
             DecimalFormat df0 = new DecimalFormat("#");
             DecimalFormat df2 = new DecimalFormat("0.00");
-            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h" + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(measuretotaldist.get(p)) + " m" + " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(measuretotaltime.get(p));
+            String actionbarmsg = ChatColor.GOLD + "速度 Speed: " + ChatColor.YELLOW + df0.format(dist * 72) + " km/h"
+                    + ChatColor.YELLOW + " | " + ChatColor.GOLD + "距離 Dist: " + ChatColor.YELLOW + df2.format(user.getMeasuretotaldist()) + " m"
+                    + " | " + ChatColor.GOLD + "時間 Time: " + ChatColor.YELLOW + tickToTimeFormatter(user.getMeasuretotaltime());
             p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(actionbarmsg));
             Bukkit.getScheduler().runTaskLater(plugin, () -> measuredist(p, marker), 1);
         } else if (!p.isInsideVehicle()) {
@@ -95,8 +95,9 @@ public class cartevents implements Listener {
     public void cartEnterEvent(VehicleEnterEvent event) {
         if (event.getEntered() instanceof Player) {
             Player p = (Player) event.getEntered();
-            incart.put(p, true);
-            totaldist.putIfAbsent(p, 0);
+            initWanmanuser(p);
+            wanmanuser user = wmuser.get(p);
+            user.setIncart(true);
         }
     }
 
@@ -104,13 +105,13 @@ public class cartevents implements Listener {
     public void payEvent(VehicleExitEvent event) {
         if (event.getExited() instanceof Player) {
             Player p = (Player) event.getExited();
-            totaldist.putIfAbsent(p, 0);
-            incart.putIfAbsent(p, false);
+            initWanmanuser(p);
+            wanmanuser user = wmuser.get(p);
             try {
                 if (!p.isInsideVehicle()) {
-                    incart.put(p, false);
+                    user.setIncart(false);
                     Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                        if (!incart.get(p) && !totaldist.get(p).equals(0)) {
+                        if (!user.isIncart() && user.getTotaldist() != 0) {
                             MinecartGroup mg = MinecartGroupStore.get(event.getVehicle());
                             double multi = 0.07 / 4;
                             // From trainfares (if available)
@@ -127,10 +128,10 @@ public class cartevents implements Listener {
                                 }
                             }
                             DecimalFormat df2 = new DecimalFormat("#.##");
-                            double km2 = totaldist.get(p) * 0.001;
+                            double km2 = user.getTotaldist() * 0.001;
                             int km = (int) (km2 + 1) - 1 == km2 ? (int) km2 : (int) (km2 + 1);
                             // Read fare table
-                            if (totaldist.get(p) > 0) {
+                            if (user.getTotaldist() > 0) {
                                 double fare;
                                 if (km > ft.size()) {
                                     fare = ft.get(ft.size() - 1) * multi;
@@ -139,7 +140,7 @@ public class cartevents implements Listener {
                                 }
                                 Objects.requireNonNull(p.getPlayer()).sendMessage(wmhead + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + wmhead + "Fare: $" + df2.format(fare));
                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco take " + p.getName() + " " + df2.format(fare));
-                                totaldist.put(p, 0);
+                                user.setTotaldist(0);
                             }
                         }
                     }, 1);
