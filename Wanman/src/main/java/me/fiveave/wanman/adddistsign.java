@@ -8,6 +8,7 @@ import com.bergerkiller.bukkit.tc.signactions.SignAction;
 import com.bergerkiller.bukkit.tc.signactions.SignActionType;
 import com.bergerkiller.bukkit.tc.utils.SignBuildOptions;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import static java.lang.Integer.parseInt;
 import static me.fiveave.wanman.main.wmuser;
 import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
-public class sign extends SignAction {
+public class adddistsign extends SignAction {
 
     @Override
     public boolean match(SignActionEvent info) {
@@ -26,14 +27,10 @@ public class sign extends SignAction {
     @Override
     public void execute(SignActionEvent cartevent) {
         if (cartevent.isAction(SignActionType.GROUP_ENTER, SignActionType.REDSTONE_ON) && cartevent.hasRailedMember() && cartevent.isPowered()) {
-            cartevent.setLevers(true);
-            //noinspection rawtypes
-            for (MinecartMember cart : cartevent.getMembers()) {
+            for (MinecartMember<?> cart : cartevent.getMembers()) {
                 // For each passenger on cart
-                //noinspection rawtypes
-                CommonEntity cart2 = cart.getEntity();
-                //noinspection rawtypes
-                List cartpassengers = cart2.getPassengers();
+                CommonEntity<?> cart2 = cart.getEntity();
+                List<Entity> cartpassengers = cart2.getPassengers();
                 for (Object cartobject : cartpassengers) {
                     Player p = (Player) cartobject;
                     // Decimal format
@@ -42,8 +39,6 @@ public class sign extends SignAction {
                     user.setTotaldist(parseInt(cartevent.getLine(2)) + user.getTotaldist());
                 }
             }
-        } else if (cartevent.isAction(SignActionType.GROUP_LEAVE, SignActionType.REDSTONE_OFF) && !cartevent.hasRailedMember() && !cartevent.isPowered()) {
-            cartevent.setLevers(false);
         }
     }
 

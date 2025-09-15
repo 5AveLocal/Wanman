@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b72db3c8-4212-4ac0-abc5-70e03037fed3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/sign.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wanmanuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wanmanuser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

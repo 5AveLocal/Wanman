@@ -13,7 +13,7 @@ public class wanmanuser {
     private double measuretotaldist;
     private int measuretotaltime;
 
-    wanmanuser(Player p) {
+    wanmanuser() {
         this.measuring = false;
         this.measuretotaldist = 0;
         this.measuretotaltime = 0;
@@ -21,7 +21,7 @@ public class wanmanuser {
     }
 
     static void initWanmanuser(Player p) {
-        wanmanuser newuser = new wanmanuser(p);
+        wanmanuser newuser = new wanmanuser();
         wmuser.putIfAbsent(p, newuser);
     }
 

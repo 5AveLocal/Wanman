@@ -18,7 +18,7 @@ public final class main extends JavaPlugin {
     final static HashMap<Player, wanmanuser> wmuser = new HashMap<>();
     public static abstractfile trainfares;
     static main plugin;
-    final sign var = new sign();
+    final adddistsign var = new adddistsign();
 
     public static void fta(int i1, int i2, int inFare) {
         for (int i = i1; i <= i2; i++) {

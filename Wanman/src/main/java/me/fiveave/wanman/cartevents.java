@@ -101,6 +101,7 @@ public class cartevents implements Listener {
         }
     }
 
+    @SuppressWarnings("CallToPrintStackTrace")
     @EventHandler
     public void payEvent(VehicleExitEvent event) {
         if (event.getExited() instanceof Player) {
