@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b72db3c8-4212-4ac0-abc5-70e03037fed3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/sign.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wanmanuser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wanmanuser.java" afterDir="false" />
-    </list>
+    <list default="true" id="b72db3c8-4212-4ac0-abc5-70e03037fed3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "5AveLocal"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/5AveLocal/Wanman.git",
+    "accountId": "ac342587-8fae-431f-b905-996ff878ede9"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
