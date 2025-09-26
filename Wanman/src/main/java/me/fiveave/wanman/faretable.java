@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-import static me.fiveave.wanman.cartevents.getTF;
+import static me.fiveave.wanman.distmeasurer.getTF;
 import static me.fiveave.wanman.main.*;
 
 public class faretable {
@@ -38,12 +38,24 @@ public class faretable {
                 } else if (bt == 1) {
                     double multi = getTF().getDouble("fares." + s + ".multiplier");
                     DecimalFormat df2 = new DecimalFormat("0.00");
-                    faretabletext = String.format("%s%s\n", faretabletext, String.format("%s %s %s", ChatColor.GREEN + String.format("%05d", info[0]), ChatColor.RED + String.format("%05d", info[1]), ChatColor.YELLOW + df2.format(multi * info[2])));
+                    faretabletext = String.format("%s%s\n", faretabletext, String.format("%s %s %s", addZeroPadding(5, ChatColor.GREEN + "" + info[0]), addZeroPadding(5, ChatColor.RED + "" + info[1]), ChatColor.YELLOW + df2.format(multi * info[2])));
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             ft.clear();
         }
+    }
+
+    static String addZeroPadding(int digit, String str) {
+        int len = str.length();
+        String zero = ChatColor.DARK_GRAY + "0";
+        StringBuilder newstr = new StringBuilder();
+        // 2 * ChatColor also counts in string length
+        for (int i = 0; i < digit + 2 - len; i++) {
+            newstr.append(zero);
+        }
+        newstr.append(str);
+        return newstr.toString();
     }
 }

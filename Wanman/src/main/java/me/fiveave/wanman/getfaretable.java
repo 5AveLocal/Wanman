@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static me.fiveave.wanman.cartevents.getTF;
+import static me.fiveave.wanman.distmeasurer.getTF;
 import static me.fiveave.wanman.faretable.faretabletext;
 
 public class getfaretable implements CommandExecutor, TabCompleter {

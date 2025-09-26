@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Wanman:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b72db3c8-4212-4ac0-abc5-70e03037fed3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Wanman_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Wanman/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Wanman.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wanman.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wmtranssign.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/wmtranssign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/distmeasurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/distmeasurer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/faretable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/faretable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/getfaretable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/getfaretable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,16 +48,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/iram0/Documents/GitHub/Wanman&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/iram0/Documents/GitHub/Wanman",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.24367817"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="me.fiveave.wanman" />
