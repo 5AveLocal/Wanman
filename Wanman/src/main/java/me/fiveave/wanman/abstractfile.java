@@ -75,6 +75,7 @@ public class abstractfile {
         }
     }
 
+    @SuppressWarnings("unused")
     void save() {
         if (dataconfig == null || file == null) {
             return;

@@ -81,6 +81,18 @@ public class cartevents implements Listener {
         return String.format("%02d:%02d:%02d.%02d", h, m, s, q);
     }
 
+    private static double getFareFromTable(double dist, double multi) {
+        double fare;
+        double km2 = dist * 0.001;
+        int km = (int) (km2 + 1) - 1 == km2 ? (int) km2 : (int) (km2 + 1);
+        if (km > ft.size()) {
+            fare = ft.get(ft.size() - 1) * multi;
+        } else {
+            fare = (ft.get(km)) * multi;
+        }
+        return fare;
+    }
+
     @EventHandler
     public void cartExitEvent(VehicleExitEvent event) {
         if (event.getExited() instanceof Player) {
@@ -129,15 +141,16 @@ public class cartevents implements Listener {
                                 }
                             }
                             DecimalFormat df2 = new DecimalFormat("#.##");
-                            double km2 = user.getTotaldist() * 0.001;
-                            int km = (int) (km2 + 1) - 1 == km2 ? (int) km2 : (int) (km2 + 1);
                             // Read fare table
                             if (user.getTotaldist() > 0) {
                                 double fare;
-                                if (km > ft.size()) {
-                                    fare = ft.get(ft.size() - 1) * multi;
-                                } else {
-                                    fare = (ft.get(km)) * multi;
+                                double dist = user.getTotaldist();
+                                fare = getFareFromTable(dist, multi);
+                                double conftransdist = user.getConfirmedtransdist();
+                                // Transfer discount
+                                if (conftransdist > 0) {
+                                    fare -= getFareFromTable(conftransdist, multi);
+                                    user.setConfirmedtransdist(0);
                                 }
                                 Objects.requireNonNull(p.getPlayer()).sendMessage(wmhead + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + wmhead + "Fare: $" + df2.format(fare));
                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco take " + p.getName() + " " + df2.format(fare));

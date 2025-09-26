@@ -1,17 +1,13 @@
 package me.fiveave.wanman;
 
 import com.bergerkiller.bukkit.common.entity.CommonEntity;
-import com.bergerkiller.bukkit.tc.controller.MinecartMember;
 import com.bergerkiller.bukkit.tc.events.SignActionEvent;
 import com.bergerkiller.bukkit.tc.events.SignChangeActionEvent;
 import com.bergerkiller.bukkit.tc.signactions.SignAction;
 import com.bergerkiller.bukkit.tc.signactions.SignActionType;
 import com.bergerkiller.bukkit.tc.utils.SignBuildOptions;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 import static java.lang.Integer.parseInt;
 import static me.fiveave.wanman.main.wmuser;
@@ -27,25 +23,44 @@ public class adddistsign extends SignAction {
     @Override
     public void execute(SignActionEvent cartevent) {
         if (cartevent.isAction(SignActionType.GROUP_ENTER, SignActionType.REDSTONE_ON) && cartevent.hasRailedMember() && cartevent.isPowered()) {
-            for (MinecartMember<?> cart : cartevent.getMembers()) {
+            cartevent.getMembers().forEach((cart) -> {
                 // For each passenger on cart
                 CommonEntity<?> cart2 = cart.getEntity();
-                List<Entity> cartpassengers = cart2.getPassengers();
-                for (Object cartobject : cartpassengers) {
-                    Player p = (Player) cartobject;
+                cart2.getPassengers().forEach((cartobj) -> {
+                    Player p = (Player) cartobj;
                     // Decimal format
+                    String[] l3 = cartevent.getLine(2).split(" ");
                     initWanmanuser(p);
                     wanmanuser user = wmuser.get(p);
-                    user.setTotaldist(parseInt(cartevent.getLine(2)) + user.getTotaldist());
-                }
-            }
+                    int newdist = user.getTotaldist() + Integer.parseInt(l3[0]);
+                    boolean resetpendingtd = true;
+                    if (l3.length > 1) {
+                        String transtag = l3[1];
+                        if (transtag.equals(user.getTranstag())) {
+                            // Put pending transfer distance into new totaldist (to continue distance calculation)
+                            // Set confirmed transfer distance
+                            int pendtransdist = user.getPendingtransdist();
+                            user.setConfirmedtransdist(pendtransdist);
+                            newdist += pendtransdist;
+                            resetpendingtd = false;
+                        }
+                    }
+                    // If tag not match then reset distance and tag
+                    if (resetpendingtd) {
+                        user.setPendingtransdist(0);
+                        user.setTranstag(null);
+                    }
+                    user.setTotaldist(newdist);
+                });
+            });
         }
     }
 
     @Override
     public boolean build(SignChangeActionEvent e) {
         try {
-            parseInt(e.getLine(2));
+            String[] l3 = e.getLine(2).split(" ");
+            parseInt(l3[0]);
             SignBuildOptions opt = SignBuildOptions.create().setName(ChatColor.GOLD + "Distance Adder");
             opt.setDescription("Add distance to passengers on train");
             return opt.handle(e.getPlayer());

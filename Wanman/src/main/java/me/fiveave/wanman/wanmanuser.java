@@ -12,6 +12,9 @@ public class wanmanuser {
     private double lastz;
     private double measuretotaldist;
     private int measuretotaltime;
+    private int pendingtransdist;
+    private int confirmedtransdist;
+    private String transtag;
 
     wanmanuser() {
         this.measuring = false;
@@ -79,5 +82,29 @@ public class wanmanuser {
 
     public void setMeasuretotaltime(int measuretotaltime) {
         this.measuretotaltime = measuretotaltime;
+    }
+
+    public String getTranstag() {
+        return transtag;
+    }
+
+    public void setTranstag(String transtag) {
+        this.transtag = transtag;
+    }
+
+    public int getPendingtransdist() {
+        return pendingtransdist;
+    }
+
+    public void setPendingtransdist(int pendingtransdist) {
+        this.pendingtransdist = pendingtransdist;
+    }
+
+    public int getConfirmedtransdist() {
+        return confirmedtransdist;
+    }
+
+    public void setConfirmedtransdist(int confirmedtransdist) {
+        this.confirmedtransdist = confirmedtransdist;
     }
 }

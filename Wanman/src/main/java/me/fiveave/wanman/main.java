@@ -19,6 +19,7 @@ public final class main extends JavaPlugin {
     public static abstractfile trainfares;
     static main plugin;
     final adddistsign var = new adddistsign();
+    final wmtranssign var1 = new wmtranssign();
 
     public static void fta(int i1, int i2, int inFare) {
         for (int i = i1; i <= i2; i++) {
@@ -30,6 +31,7 @@ public final class main extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         SignAction.register(var);
+        SignAction.register(var1);
         plugin = this;
         PluginManager pm = this.getServer().getPluginManager();
         pm.registerEvents(new cartevents(), this);
@@ -45,5 +47,6 @@ public final class main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         SignAction.unregister(var);
+        SignAction.unregister(var1);
     }
 }
