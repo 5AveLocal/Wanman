@@ -44,14 +44,14 @@ public class adddistsign extends SignAction {
                             user.setConfirmedtransdist(pendtransdist);
                             newdist += pendtransdist;
                             resetpendingtd = false;
-                            p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換える前の距離が加算されました。\n" + wmhead + ChatColor.YELLOW + "Distance before transferring has been added.");
+                            p.sendMessage(wmhead + ChatColor.GREEN + "乗り換え距離が加算されました。\n" + wmhead + ChatColor.GREEN + "Transfer distance has been added.");
                         }
                     }
                     // If tag not match then reset distance and tag
                     if (resetpendingtd) {
                         user.setPendingtransdist(0);
                         user.setTranstag(null);
-                        p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換えませんでした。\n" + wmhead + ChatColor.YELLOW + "You did not transfer.");
+                        p.sendMessage(wmhead + ChatColor.RED + "乗り換え距離が加算されませんでした。\n" + wmhead + ChatColor.RED + "Transfer distance has not been added.");
                     }
                     user.setTotaldist(newdist);
                 });

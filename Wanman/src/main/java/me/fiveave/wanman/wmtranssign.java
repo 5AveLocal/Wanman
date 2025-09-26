@@ -34,8 +34,7 @@ public class wmtranssign extends SignAction {
                     String tag = cartevent.getLine(2);
                     user.setTranstag(tag);
                     user.setPendingtransdist(user.getTotaldist());
-                    p.sendMessage(wmhead + ChatColor.YELLOW + "この駅で " + tag + " タグで乗り換えれば、次の列車を降りるときは、総距離によって精算します。");
-                    p.sendMessage(wmhead + ChatColor.YELLOW + "If you transfer using the tag " + tag + " at this station, the fare will be adjusted according to your total riding distance, when you alight from the next train.");
+                    p.sendMessage(wmhead + ChatColor.YELLOW + "この駅で乗り換えれば、" + tag + "の乗り換え割引をご利用いただけます。\n" + wmhead + ChatColor.YELLOW + "If you transfer at this station, you can enjoy a discount of " + tag + ".");
                 });
             });
         }
