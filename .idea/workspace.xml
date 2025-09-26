@@ -10,15 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b72db3c8-4212-4ac0-abc5-70e03037fed3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Wanman_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Wanman/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Wanman.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wanman.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Wanman_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Wanman_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/adddistsign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/cartevents.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/distmeasurer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/distmeasurer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/faretable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/faretable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/getfaretable.java" beforeDir="false" afterPath="$PROJECT_DIR$/Wanman/src/main/java/me/fiveave/wanman/getfaretable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jars/Wanman.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +51,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/iram0/Documents/GitHub/Wanman",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.24367817"
   }
