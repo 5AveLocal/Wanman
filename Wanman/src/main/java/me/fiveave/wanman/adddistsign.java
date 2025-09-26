@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static java.lang.Integer.parseInt;
+import static me.fiveave.wanman.main.wmhead;
 import static me.fiveave.wanman.main.wmuser;
 import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
@@ -43,12 +44,14 @@ public class adddistsign extends SignAction {
                             user.setConfirmedtransdist(pendtransdist);
                             newdist += pendtransdist;
                             resetpendingtd = false;
+                            p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換える前の距離が加算されました。\n" + wmhead + ChatColor.YELLOW + "Distance before transferring has been added.");
                         }
                     }
                     // If tag not match then reset distance and tag
                     if (resetpendingtd) {
                         user.setPendingtransdist(0);
                         user.setTranstag(null);
+                        p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換えませんでした。\n" + wmhead + ChatColor.YELLOW + "You did not transfer.");
                     }
                     user.setTotaldist(newdist);
                 });

@@ -9,6 +9,7 @@ import com.bergerkiller.bukkit.tc.utils.SignBuildOptions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import static me.fiveave.wanman.main.wmhead;
 import static me.fiveave.wanman.main.wmuser;
 import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
@@ -30,8 +31,11 @@ public class wmtranssign extends SignAction {
                     // Decimal format
                     initWanmanuser(p);
                     wanmanuser user = wmuser.get(p);
-                    user.setTranstag(cartevent.getLine(2));
+                    String tag = cartevent.getLine(2);
+                    user.setTranstag(tag);
                     user.setPendingtransdist(user.getTotaldist());
+                    p.sendMessage(wmhead + ChatColor.YELLOW + "この駅で " + tag + " タグで乗り換えれば、次の列車を降りるときは、総距離によって精算します。");
+                    p.sendMessage(wmhead + ChatColor.YELLOW + "If you transfer using the tag " + tag + " at this station, the fare will be adjusted according to your total riding distance, when you alight from the next train.");
                 });
             });
         }
