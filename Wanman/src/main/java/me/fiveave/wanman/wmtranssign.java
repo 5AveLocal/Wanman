@@ -34,7 +34,7 @@ public class wmtranssign extends SignAction {
                     String tag = cartevent.getLine(2);
                     user.setTranstag(tag);
                     user.setPendingtransdist(user.getTotaldist());
-                    p.sendMessage(wmhead + ChatColor.YELLOW + "この駅で乗り換えれば、" + tag + "の乗り換え割引をご利用いただけます。\n" + wmhead + ChatColor.YELLOW + "If you transfer at this station, you can enjoy a discount of " + tag + ".");
+                    p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換え割引 Transfer Discount" + ChatColor.GREEN + " + " + tag);
                 });
             });
         }

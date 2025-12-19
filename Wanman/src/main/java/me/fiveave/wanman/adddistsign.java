@@ -34,24 +34,25 @@ public class adddistsign extends SignAction {
                     initWanmanuser(p);
                     wanmanuser user = wmuser.get(p);
                     int newdist = user.getTotaldist() + Integer.parseInt(l3[0]);
+                    String usertranstag = user.getTranstag();
                     boolean resetpendingtd = true;
                     if (l3.length > 1) {
                         String transtag = l3[1];
-                        if (transtag.equals(user.getTranstag())) {
+                        if (transtag.equals(usertranstag)) {
                             // Put pending transfer distance into new totaldist (to continue distance calculation)
                             // Set confirmed transfer distance
                             int pendtransdist = user.getPendingtransdist();
                             user.setConfirmedtransdist(pendtransdist);
                             newdist += pendtransdist;
                             resetpendingtd = false;
-                            p.sendMessage(wmhead + ChatColor.GREEN + "乗り換え距離が加算されました。\n" + wmhead + ChatColor.GREEN + "Transfer distance has been added.");
+                            p.sendMessage(wmhead + ChatColor.GREEN + "乗り換え割引使用 Used transfer discount " + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + usertranstag);
                         }
                     }
                     // If tag not match then reset distance and tag
-                    if (user.getTranstag() != null && resetpendingtd) {
+                    if (usertranstag != null && resetpendingtd) {
                         user.setPendingtransdist(0);
                         user.setTranstag(null);
-                        p.sendMessage(wmhead + ChatColor.RED + "乗り換え距離が加算されませんでした。\n" + wmhead + ChatColor.RED + "Transfer distance has not been added.");
+                        p.sendMessage(wmhead + ChatColor.RED + "乗り換え割引未使用 Did not use transfer discount " + ChatColor.GRAY + ChatColor.STRIKETHROUGH + usertranstag);
                     }
                     user.setTotaldist(newdist);
                 });
