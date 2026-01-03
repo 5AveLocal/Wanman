@@ -45,6 +45,7 @@ public class adddistsign extends SignAction {
                             user.setConfirmedtransdist(pendtransdist);
                             newdist += pendtransdist;
                             resetpendingtd = false;
+                            user.setTranstag(null);
                             p.sendMessage(wmhead + ChatColor.GREEN + "乗り換え割引使用 Used transfer discount " + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + usertranstag);
                         }
                     }
