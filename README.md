@@ -20,6 +20,7 @@ recommended.
 ## 🪧 Signs
 
 ### adddist
+
 Add travel distance to passengers on train
 
 ```
@@ -34,6 +35,7 @@ where
 - `[trdisc]` is an optional argument to apply a transfer discount tag
 
 ### wmtrans
+
 Apply transfer discount tag to passengers on train
 
 ```
