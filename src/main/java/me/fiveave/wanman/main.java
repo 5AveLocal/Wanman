@@ -1,6 +1,7 @@
 package me.fiveave.wanman;
 
 import com.bergerkiller.bukkit.tc.signactions.SignAction;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -9,12 +10,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public final class main extends JavaPlugin {
     // fta = Fare Table Add Item
     // ft = Fare Table
     public final static ArrayList<Integer> ft = new ArrayList<>();
-    public final static String wmhead = ChatColor.YELLOW + "[" + ChatColor.GOLD + "Wanman" + ChatColor.YELLOW + "] ";
+    public final static String WM_HEAD = ChatColor.YELLOW + "[" + ChatColor.GOLD + "Wanman" + ChatColor.YELLOW + "] ";
     final static HashMap<Player, wanmanuser> wmuser = new HashMap<>();
     public static abstractfile trainfares;
     static main plugin;
@@ -48,5 +50,9 @@ public final class main extends JavaPlugin {
         // Plugin shutdown logic
         SignAction.unregister(var);
         SignAction.unregister(var1);
+    }
+
+    static void errorLog(Exception e) {
+        Bukkit.getLogger().log(Level.SEVERE, ChatColor.stripColor(WM_HEAD) + "An error occurred!", e);
     }
 }

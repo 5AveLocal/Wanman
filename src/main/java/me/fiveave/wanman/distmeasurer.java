@@ -105,7 +105,7 @@ public class distmeasurer implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             if (args[0].equals("marker")) {
                 if (!sender.hasPermission("wanman.marker")) {
-                    sender.sendMessage(wmhead + ChatColor.RED + "権限不足！ No permission!");
+                    sender.sendMessage(WM_HEAD + ChatColor.RED + "権限不足！ No permission!");
                     return true;
                 }
             }
@@ -125,28 +125,28 @@ public class distmeasurer implements CommandExecutor, TabCompleter {
                     if (args.length == 1) {
                         if (args[0].equals("marker")) {
                             measuredist(p, true);
-                            p.sendMessage(wmhead + ChatColor.YELLOW + "標識は100メートルごとに配置されます。 Signs are placed every 100 meters.");
+                            p.sendMessage(WM_HEAD + ChatColor.YELLOW + "標識は100メートルごとに配置されます。 Signs are placed every 100 meters.");
                         } else {
                             user.setMeasuring(false);
-                            sender.sendMessage(wmhead + ChatColor.RED + "コマンドは間違いました！ Incorrect command!");
+                            sender.sendMessage(WM_HEAD + ChatColor.RED + "コマンドは間違いました！ Incorrect command!");
                             return true;
                         }
                     } else {
                         measuredist(p, false);
                     }
-                    p.sendMessage(wmhead + ChatColor.GREEN + "測定開始 Measuring started");
+                    p.sendMessage(WM_HEAD + ChatColor.GREEN + "測定開始 Measuring started");
                 } else {
-                    p.sendMessage(wmhead + ChatColor.RED + "乗り物に乗ってください！ Please sit in a vehicle!");
+                    p.sendMessage(WM_HEAD + ChatColor.RED + "乗り物に乗ってください！ Please sit in a vehicle!");
                 }
             } else {
                 DecimalFormat df2 = new DecimalFormat("#.##");
-                p.sendMessage(wmhead + ChatColor.RED + "測定終了 Measuring ended");
-                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行距離 Total distance: " + df2.format(user.getMeasuretotaldist()) + " m");
-                p.sendMessage(wmhead + ChatColor.YELLOW + "総走行時間 Total time: " + tickToTimeFormatter(user.getMeasuretotaltime()));
+                p.sendMessage(WM_HEAD + ChatColor.RED + "測定終了 Measuring ended");
+                p.sendMessage(WM_HEAD + ChatColor.YELLOW + "総走行距離 Total distance: " + df2.format(user.getMeasuretotaldist()) + " m");
+                p.sendMessage(WM_HEAD + ChatColor.YELLOW + "総走行時間 Total time: " + tickToTimeFormatter(user.getMeasuretotaltime()));
                 user.setMeasuring(false);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            errorLog(e);
         }
         return true;
     }

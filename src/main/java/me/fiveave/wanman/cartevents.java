@@ -41,7 +41,6 @@ public class cartevents implements Listener {
         }
     }
 
-    @SuppressWarnings("CallToPrintStackTrace")
     @EventHandler
     public void payEvent(VehicleExitEvent event) {
         if (event.getExited() instanceof Player) {
@@ -81,7 +80,7 @@ public class cartevents implements Listener {
                                     user.setConfirmedtransdist(0);
                                     user.setTranstag(null);
                                 }
-                                Objects.requireNonNull(p.getPlayer()).sendMessage(wmhead + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + wmhead + "Fare: $" + df2.format(fare));
+                                Objects.requireNonNull(p.getPlayer()).sendMessage(WM_HEAD + ChatColor.YELLOW + "運賃は $" + df2.format(fare) + " です。\n" + WM_HEAD + "Fare: $" + df2.format(fare));
                                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco take " + p.getName() + " " + df2.format(fare));
                                 user.setTotaldist(0);
                             }
@@ -89,11 +88,11 @@ public class cartevents implements Listener {
                     }, 1);
                 }
             } catch (NumberFormatException e) {
-                p.sendMessage(wmhead + ChatColor.RED + "数字フォーマットエラーが発生しました。A number format exception occurred.");
-                e.printStackTrace();
+                p.sendMessage(WM_HEAD + ChatColor.RED + "数字フォーマットエラーが発生しました。A number format exception occurred.");
+                errorLog(e);
             } catch (CommandException e) {
-                p.sendMessage(wmhead + ChatColor.RED + "コマンドエラーが発生しました。A command exception occurred.");
-                e.printStackTrace();
+                p.sendMessage(WM_HEAD + ChatColor.RED + "コマンドエラーが発生しました。A command exception occurred.");
+                errorLog(e);
             }
         }
     }

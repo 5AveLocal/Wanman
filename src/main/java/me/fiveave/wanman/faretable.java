@@ -17,7 +17,7 @@ public class faretable {
     public static void read(String s, int bt) {
         // Clear faretable in case of error
         ft.clear();
-        faretabletext = wmhead + "運賃表 Fare table:\n" + String.format("%-7s %-7s %-7s\n%-8s %-8s %-8s\n", ChatColor.GREEN + "から", ChatColor.RED + "まで", ChatColor.YELLOW + "運賃", ChatColor.GREEN + "From", ChatColor.RED + "To", ChatColor.YELLOW + "Fare");
+        faretabletext = WM_HEAD + "運賃表 Fare table:\n" + String.format("%-7s %-7s %-7s\n%-8s %-8s %-8s\n", ChatColor.GREEN + "から", ChatColor.RED + "まで", ChatColor.YELLOW + "運賃", ChatColor.GREEN + "From", ChatColor.RED + "To", ChatColor.YELLOW + "Fare");
         String line;
         try {
             String name = getTF().getString("fares." + s + ".faretable");
@@ -42,7 +42,7 @@ public class faretable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            errorLog(e);
             ft.clear();
         }
     }

@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static java.lang.Integer.parseInt;
-import static me.fiveave.wanman.main.wmhead;
+import static me.fiveave.wanman.main.WM_HEAD;
 import static me.fiveave.wanman.main.wmuser;
 import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
@@ -46,14 +46,14 @@ public class adddistsign extends SignAction {
                             newdist += pendtransdist;
                             resetpendingtd = false;
                             user.setTranstag(null);
-                            p.sendMessage(wmhead + ChatColor.GREEN + "乗り換え割引使用 Used transfer discount " + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + usertranstag);
+                            p.sendMessage(WM_HEAD + ChatColor.GREEN + "乗り換え割引使用 Used transfer discount " + ChatColor.YELLOW + ChatColor.STRIKETHROUGH + usertranstag);
                         }
                     }
                     // If tag not match then reset distance and tag
                     if (usertranstag != null && resetpendingtd) {
                         user.setPendingtransdist(0);
                         user.setTranstag(null);
-                        p.sendMessage(wmhead + ChatColor.RED + "乗り換え割引未使用 Did not use transfer discount " + ChatColor.GRAY + ChatColor.STRIKETHROUGH + usertranstag);
+                        p.sendMessage(WM_HEAD + ChatColor.RED + "乗り換え割引未使用 Did not use transfer discount " + ChatColor.GRAY + ChatColor.STRIKETHROUGH + usertranstag);
                     }
                     user.setTotaldist(newdist);
                 });

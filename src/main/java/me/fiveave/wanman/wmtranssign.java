@@ -9,7 +9,7 @@ import com.bergerkiller.bukkit.tc.utils.SignBuildOptions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import static me.fiveave.wanman.main.wmhead;
+import static me.fiveave.wanman.main.WM_HEAD;
 import static me.fiveave.wanman.main.wmuser;
 import static me.fiveave.wanman.wanmanuser.initWanmanuser;
 
@@ -34,7 +34,7 @@ public class wmtranssign extends SignAction {
                     String tag = cartevent.getLine(2);
                     user.setTranstag(tag);
                     user.setPendingtransdist(user.getTotaldist());
-                    p.sendMessage(wmhead + ChatColor.YELLOW + "乗り換え割引 Transfer Discount" + ChatColor.GREEN + " + " + tag);
+                    p.sendMessage(WM_HEAD + ChatColor.YELLOW + "乗り換え割引 Transfer Discount" + ChatColor.GREEN + " + " + tag);
                 });
             });
         }

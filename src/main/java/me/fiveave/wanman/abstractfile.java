@@ -12,6 +12,8 @@ import java.io.InputStreamReader;
 import java.util.Set;
 import java.util.logging.Level;
 
+import static me.fiveave.wanman.main.errorLog;
+
 public class abstractfile {
     protected final main plugin;
     final FileConfiguration oldconfig;
@@ -69,7 +71,7 @@ public class abstractfile {
 
                     Bukkit.getLogger().log(Level.INFO, ChatColor.YELLOW + fileName + " has been updated with new config options");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    errorLog(e);
                 }
             }
         }
@@ -83,7 +85,7 @@ public class abstractfile {
         try {
             dataconfig.save(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            errorLog(e);
         }
     }
 
